@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AverageForStudent.CoursesListView"
+              xmlns:viewModels="clr-namespace:AverageForStudent.ViewModel"
+             xmlns:model="clr-namespace:AverageForStudent.Model"
+             x:DataType="viewModels:CoursesListViewModel"
+            
+             Title="Averge App">
+
+    <StackLayout Margin="10">
+        <Button Clicked="AddGradeClicked" Text="Add Grade"/>
+        <Label 
+            Text="{Binding Avg}"
+            SemanticProperties.HeadingLevel="Level1"
+            FontSize="24"
+            
+            HorizontalOptions="Center" />
+        <Label Text="Courses" Style="{StaticResource labelBoldSubTite}" />
+        <ActivityIndicator IsRunning="True" IsVisible="{Binding IsBusy}" />
+
+        <Grid Padding="4"  >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="20" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="70" />
+                <ColumnDefinition Width="180" />
+                <ColumnDefinition Width="110" />
+
+
+            </Grid.ColumnDefinitions>
+            <Label Grid.Column="0"
+                       Text="Coruse"
+                       FontAttributes="Bold"
+                   HorizontalOptions="Center"
+                       LineBreakMode="TailTruncation" />
+            <Label Grid.Column="1"
+                       Text="Grade"
+                       FontAttributes="Bold"
+                                      HorizontalOptions="Center"
+
+                       LineBreakMode="TailTruncation" />
+            <Label Grid.Column="2"
+                       Text="Points"
+                       FontAttributes="Bold"
+                                      HorizontalOptions="Center"
+
+                       LineBreakMode="TailTruncation" />
+
+        </Grid>
+
+        <RefreshView Command="{Binding RefreshCommand}" IsRefreshing="{Binding IsRefreshing}" >
+            <CollectionView ItemsSource="{Binding CoursesList}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="model:Courses"  >
+                        <StackLayout Padding="10">
+                            <Grid  Padding="4"  >
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="20" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="140" />
+                                    <ColumnDefinition Width="140" />
+                                    <ColumnDefinition Width="140" />
+
+                                </Grid.ColumnDefinitions>
+                                <Label Grid.Column="0"
+                       Text="{Binding name}"
+                       FontAttributes="Bold"
+                       LineBreakMode="TailTruncation" />
+                                <Label Grid.Column="1"
+                       Text="{Binding grade}"
+                       FontAttributes="Bold"
+                       LineBreakMode="TailTruncation" />
+                                <Label Grid.Column="2"
+                       Text="{Binding grade}"
+                       FontAttributes="Bold"
+                       LineBreakMode="TailTruncation" />
+
+                            </Grid>
+                            <StackLayout.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding Source={x:RelativeSource AncestorType={x:Type viewModels:CoursesListViewModel}},Path=SelectedItemCommand}" CommandParameter="{Binding .}" />
+                            </StackLayout.GestureRecognizers>
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </RefreshView>
+
+    </StackLayout>
+</ContentPage>
+
