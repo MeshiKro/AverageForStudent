@@ -34,4 +34,8 @@ public partial class BasePopupPage : ContentPage
     {
         await App.Current.MainPage.Navigation.PopModalAsync();
     });
+    public ICommand Back() => new Command(async () =>
+    {
+        Shell.Current.GoToAsync("..");
+    });
 }

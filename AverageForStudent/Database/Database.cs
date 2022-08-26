@@ -24,6 +24,11 @@ namespace AverageForStudent.Database
         {
             return _database.Table<Courses>().ToList();
         }
+        public void RemoveAllCourses()
+        {
+               _database.ExecuteScalar<Courses>("DELETE FROM Courses", new string[1] { "" });
+
+        }
         public double GetAverage()
         {
             List<Courses> list = GetCoursesList();

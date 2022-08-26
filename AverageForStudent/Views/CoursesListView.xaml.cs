@@ -16,7 +16,18 @@ public partial class CoursesListView : ContentPage
 
     private async void AddGradeClicked(object sender, EventArgs e)
     {
-        await App.Current.MainPage.Navigation.PushModalAsync(new PopupPage1());
+
+        var modalPage = new PopupPage1();
+        modalPage.Disappearing += (sender2, e2) =>
+        {
+            this.BindingContext = new CoursesListViewModel();
+        };
+        await App.Current.MainPage.Navigation.PushModalAsync(modalPage);
+
 
     }
+   
+
+
+
 }

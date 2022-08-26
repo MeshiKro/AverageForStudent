@@ -25,8 +25,6 @@ namespace AverageForStudent.ViewModel
         public CoursesListViewModel()
         {
             database = new Database.Database();
-
-
             AddCoursesList();
         }
 
@@ -43,9 +41,12 @@ namespace AverageForStudent.ViewModel
                   Application.Current.Dispatcher.Dispatch(() =>
                   {
                       //database.Create(new Courses { name = "Math", points = 3, grade = 100 });
-                      //database.Create(new Courses { name = "Java", points = 3, grade = 90 });
+                      // database.Create(new Courses { name = "Java", points = 3, grade = 90 });
+                   //   database.RemoveAllCourses();
+
                       List<Courses> cList = database.GetCoursesList();
                       CoursesList.Clear();
+
                       foreach (Courses c in cList)
                       {
 

@@ -10,13 +10,14 @@
 
     <StackLayout Margin="10">
         <Button Clicked="AddGradeClicked" Text="Add Grade"/>
+
         <Label 
             Text="{Binding Avg}"
             SemanticProperties.HeadingLevel="Level1"
             FontSize="24"
             
             HorizontalOptions="Center" />
-        <Label Text="Courses" Style="{StaticResource labelBoldSubTite}" />
+        <Label Text="Courses"  />
         <ActivityIndicator IsRunning="True" IsVisible="{Binding IsBusy}" />
 
         <Grid Padding="4"  >
@@ -74,7 +75,7 @@
                        FontAttributes="Bold"
                        LineBreakMode="TailTruncation" />
                                 <Label Grid.Column="2"
-                       Text="{Binding grade}"
+                       Text="{Binding points}"
                        FontAttributes="Bold"
                        LineBreakMode="TailTruncation" />
 
