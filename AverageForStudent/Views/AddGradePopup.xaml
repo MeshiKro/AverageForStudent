@@ -6,7 +6,7 @@
     x:Class="AverageForStudent.Views.PopupPage1">
     <controls:BasePopupPage.PopupContent>
         <StackLayout Spacing="15">
-            <Label Text="Add Grade" FontSize="16" FontAttributes="Bold"   TextColor="Black"/>
+            <Label x:Name="title" Text="Add Grade" FontSize="16" FontAttributes="Bold"   TextColor="Black"/>
 
             <Entry x:Name="courseName"                 
                    Placeholder="Course Name"/>
@@ -24,15 +24,24 @@
                 <Button Text="Add"
                  VerticalOptions="Fill"
                  Margin="10"
+                 x:Name="addBtn"
                  WidthRequest="150"
                  Clicked="AddButtonClicked"/>
 
                 <Button Text="Clear"
                    VerticalOptions="Fill"
                     Margin="10"
+                           x:Name="clearBtn"
                     WidthRequest="150"
                     Clicked="ClearButtonClicked"/>
 
+                <Button Text="Delete"
+                   VerticalOptions="Fill"
+                    Margin="10"
+                           x:Name="deleteBtn"
+                    WidthRequest="150"
+                        IsVisible="false"
+                    Clicked="DeleteButtonClicked"/>
 
             </HorizontalStackLayout>
             <HorizontalStackLayout>

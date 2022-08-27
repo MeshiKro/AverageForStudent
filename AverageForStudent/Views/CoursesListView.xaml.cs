@@ -20,7 +20,7 @@ public partial class CoursesListView : ContentPage
         var modalPage = new PopupPage1();
         modalPage.Disappearing += (sender2, e2) =>
         {
-            this.BindingContext = new CoursesListViewModel();
+          ((CoursesListViewModel)  this.BindingContext).RefreshCommand.Execute(null);
         };
         await App.Current.MainPage.Navigation.PushModalAsync(modalPage);
 

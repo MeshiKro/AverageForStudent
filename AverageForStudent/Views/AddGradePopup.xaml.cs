@@ -7,33 +7,66 @@ namespace AverageForStudent.Views;
 public partial class PopupPage1 : BasePopupPage
 {
     Database.Database database;
+    private Courses courseDetail;
+
     public PopupPage1()
     {
         InitializeComponent();
 
         database = new Database.Database();
+        this.courseDetail = null;
     }
-  
 
-   
+    public PopupPage1(Courses courseDetail)
+    {
+        InitializeComponent();
+
+        database = new Database.Database();
+
+        this.courseDetail = courseDetail;
+
+        title.Text = "Edit Grade";
+        courseName.IsEnabled = false;
+        courseName.Text = courseDetail.name;
+        courseGrade.Text = courseDetail.grade.ToString();
+        coursePoints.Text = courseDetail.points.ToString();
+        addBtn.Text = "Update";
+        clearBtn.IsVisible = false;
+        deleteBtn.IsVisible = true;
+    }
+
     private void AddButtonClicked(object sender, EventArgs e)
     {
-       
+
         errorMsg.Text = ValidateFields();
         if (errorMsg.Text == "")
         {
+            Courses c = getCourse();
 
-            Courses c = new Courses();
-            c.name = courseName.Text;
-            c.grade = Int32.Parse(courseGrade.Text);
-            c.points = Int32.Parse(coursePoints.Text);
-
-            database.Create(c);
+            if (title.Text.Contains("Add"))
+                database.Create(c);
+            else
+                database.Update(c);
 
             CloseButtonClicked(sender, e);
 
-
         }
+
+
+    }
+
+    private Courses getCourse()
+    {
+        Courses c = new Courses();
+        if (title.Text.Contains("Edit")  && this.courseDetail != null)
+            c.id = courseDetail.id;
+        else
+            c.id = database.GetNewId();
+
+        c.name = courseName.Text;
+        c.grade = Int32.Parse(courseGrade.Text);
+        c.points = Int32.Parse(coursePoints.Text);
+        return c;
 
     }
 
@@ -74,6 +107,15 @@ public partial class PopupPage1 : BasePopupPage
     private void ClearButtonClicked(object sender, EventArgs e)
     {
         errorMsg.Text = courseGrade.Text = coursePoints.Text = courseName.Text = "";
+
+    }
+    private async void DeleteButtonClicked(object sender, EventArgs e)
+    {
+        bool answer = await DisplayAlert("Delete", "Are you sure you want to delete this course?", "Yes", "No");
+        if(answer)
+        database.Delete(getCourse());
+        CloseButtonClicked(sender, e);
+
 
     }
     private void CloseButtonClicked(object sender, EventArgs e)

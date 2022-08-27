@@ -9,6 +9,8 @@ namespace AverageForStudent.Model
     public class Courses
     {
 
+        public Int32 id { get; set; }
+
         public string name { get; set; }
 
         public int points { get; set; }

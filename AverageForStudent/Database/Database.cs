@@ -17,7 +17,12 @@ namespace AverageForStudent.Database
         {
             var dbPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "entities.db");
             _database = new SQLiteConnection(dbPath);
-            _database.CreateTable<Courses>();
+            try
+            {
+                _database.CreateTable<Courses>(CreateFlags.ImplicitPK);
+            }
+            catch
+            { }
         }
 
         public List<Courses> GetCoursesList()
@@ -44,7 +49,17 @@ namespace AverageForStudent.Database
             return (totalSum / totalPoint);
 
         }
-
+        public Int32 GetNewId()
+        {
+            int id = 0;
+            List<Courses> courses = GetCoursesList();
+            foreach(Courses c in courses)
+            {
+                if (c.id > id)
+                    id = c.id;
+            }
+            return (id+1);
+        }
         public int Create(Courses entity)
         {
             return _database.Insert(entity);

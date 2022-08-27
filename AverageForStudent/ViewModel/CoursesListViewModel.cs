@@ -1,4 +1,5 @@
 ﻿using AverageForStudent.Model;
+using AverageForStudent.Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -71,7 +72,13 @@ namespace AverageForStudent.ViewModel
 
         public ICommand SelectedItemCommand => new Command<Courses>(async (courseDetail) =>
         {
-            await Application.Current.MainPage.DisplayAlert("Selected Student", "Selected STudent Name is " + courseDetail.name, "OK");
+            var modalPage = new PopupPage1(courseDetail);
+            modalPage.Disappearing += (sender2, e2) =>
+            {
+                AddCoursesList();
+            };
+            await App.Current.MainPage.Navigation.PushModalAsync(modalPage);
+
         });
         #endregion
     }
